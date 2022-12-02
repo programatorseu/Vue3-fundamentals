@@ -16,3 +16,9 @@ The purpose of this key attribute is to give "a hint for Vue's virtual DOM algor
 
 clever way with destructing :
 ```<li v-for="{id, label} in items" :key="id"> {{label}}</li>```
+
+```  <input 
+        v-on:keyup.enter=
+```        
+could be replaced iwth
+`@keyup.enter`

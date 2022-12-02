@@ -9,6 +9,18 @@
 <body>
     <div id="task-list">
         <h1>{{header.toUpperCase() || 'Welcome'}}</h1>
+        <input 
+        v-on:keyup.enter="items.push({id:items.length + 1, label: newItem})"
+        type="text" v-model="newItem" placeholder="Add new item">
+        <label for="">
+            <input type="checkbox" v-mode=""newItemPriority> High Priorty
+        </label>
+        <button
+        
+            v-on:click="items.push({id:items.length + 1, label: newItem})"
+            class="btn">
+            Save Item
+        </button>
         <ul>
             <li v-for="{id, label} in items" :key="id"> {{label}}</li>
         </ul>
@@ -19,6 +31,8 @@
             data() {
                 return {
                     header: "Task list",
+                    newItem: '',
+                    newItemPriority: false,
                     items: [
                         {id: 1, label: "first item"},
                         {id: 2, label: "second item"},
