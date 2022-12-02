@@ -9,14 +9,21 @@
 <body>
     <div id="task-list">
         <h1>{{header.toUpperCase() || 'Welcome'}}</h1>
-        <input v-model="header">
+        <ul>
+            <li v-for="{id, label} in items" :key="id"> {{label}}</li>
+        </ul>
     </div>
     <script src="https://unpkg.com/vue@3"></script>
     <script>
             const taskList = Vue.createApp({
             data() {
                 return {
-                    header: ""
+                    header: "Task list",
+                    items: [
+                        {id: 1, label: "first item"},
+                        {id: 2, label: "second item"},
+                        {id: 3, label: "third item"}
+                    ]
                 }
             }
         }).mount('#task-list')
