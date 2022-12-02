@@ -8,3 +8,5 @@
 
 - ability to edit from console 
 ```const taskList = Vue.createApp({```
+
+we can use JS expression inside 

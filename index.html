@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="task-list">
-        <h1>{{header}}</h1>
+        <h1>{{header.toUpperCase() || 'Welcome'}}</h1>
         <input v-model="header">
     </div>
     <script src="https://unpkg.com/vue@3"></script>
@@ -16,7 +16,7 @@
             const taskList = Vue.createApp({
             data() {
                 return {
-                    header: "Vue is ready to go"
+                    header: ""
                 }
             }
         }).mount('#task-list')
