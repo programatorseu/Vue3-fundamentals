@@ -10,14 +10,14 @@
     <div id="task-list">
         <h1>{{header.toUpperCase() || 'Welcome'}}</h1>
         <input 
-        v-on:keyup.enter="items.push({id:items.length + 1, label: newItem})"
+        @keyup.enter="saveItem"
         type="text" v-model="newItem" placeholder="Add new item">
         <label for="">
             <input type="checkbox" v-mode=""newItemPriority> High Priorty
         </label>
         <button
         
-            v-on:click="items.push({id:items.length + 1, label: newItem})"
+            @click="saveItem"
             class="btn">
             Save Item
         </button>
@@ -38,6 +38,12 @@
                         {id: 2, label: "second item"},
                         {id: 3, label: "third item"}
                     ]
+                }
+            },
+            methods: {
+                saveItem() {
+                    this.items.push({id:this.items.length + 1, label: this.newItem})
+                    this.newItem = ""
                 }
             }
         }).mount('#task-list')
