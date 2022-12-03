@@ -5,6 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .striked {
+            text-decoration: line-through;
+        }
+        .priority {
+            color:red;
+        }
+    </style>
 </head>
 <body>
     <div id="task-list">
@@ -16,10 +24,11 @@
               @keyup.enter="saveItem" 
               type="text" v-model="newItem" placeholder = "Add an Item">
             <label>
-              <input type="checkbox" v-model="newItemHighPriority">
+              <input type="checkbox" v-model="newItemPriority">
               High Priority
             </label>
             <button 
+              v-bind:disabled="newItem.length === 0"
               @click="saveItem" 
               class="btn btn-primary">
               Save Item
@@ -27,7 +36,15 @@
           </div>
           <p v-if="items.length === 0">Nice job! You've bought all your items!</p>
         <ul>
-            <li v-for="{id, label} in items" :key="id"> {{label}}</li>
+            <li 
+                v-for="item in items" 
+                :key="item.id"
+                @click="toggle(item)"
+            :class="[
+                {striked: item.completed},
+                {priority: item.highPriority},
+                'static-class'
+            ]"> {{item.label}}</li>
         </ul>
     </div>
     <script src="https://unpkg.com/vue@3"></script>
@@ -38,23 +55,33 @@
                     header: "Task list",
                     newItem: '',
                     editing: false,
-                    newItemPriority: false,
+                    highPriority: false,
                     items: [
-                        {id: 1, label: "first item"},
-                        {id: 2, label: "second item"},
-                        {id: 3, label: "third item"}
+                        {id: 1, label: "first item", completed: true, highPriority: false},
+                        {id: 2, label: "second item", completed: true, highPriority: false},
+                        {id: 3, label: "third item", completed: false, highPriority: true}
                     ]
                 }
             },
             methods: {
                 saveItem() {
-                    this.items.push({id:this.items.length + 1, label: this.newItem})
+                    this.items.push({
+                        id:this.items.length + 1, 
+                        label: this.newItem,
+                        highPriority: this.newItemPriority,
+                        completed: false
+                    })
+                
                     this.newItem = ""
+                    this.newItemPriority = ""
                 },
                 doEdit(editing){
-          this.editing = editing
-          this.newItem = ""
-        }
+                    this.editing = editing
+                    this.newItem = ""
+                },
+                toggle(item) {
+                    item.completed = !item.completed
+                }
                 
             }
         }).mount('#task-list')

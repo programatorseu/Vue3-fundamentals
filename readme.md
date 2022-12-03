@@ -22,3 +22,22 @@ clever way with destructing :
 ```        
 could be replaced iwth
 `@keyup.enter`
+
+`v-bind` to play with html attribute binding 
+
+in case of css classes  add static class : 
+```html
+<li v-for="item in items" :key="item.id"
+            :class="{striked: item.completed, priority: item.highPriority}"
+            class="static-class">
+```
+
+we can use array syntax :  
+```html
+<li v-for="item in items" :key="item.id"
+            :class="[
+                {striked: item.completed},
+                {priority: item.highPriority},
+                'static-class'
+            ]">
+```            
